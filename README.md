@@ -42,6 +42,20 @@ This project implements an **intelligent image recommendation system** that lear
 | **Data Visualization** | Charts for dataset insights | ✅ Working |
 | **Error Handling** | Robust data validation | ✅ Improved |
 
+## 🔄 Data Pipeline
+
+```mermaid
+graph LR
+    A[Wikidata] -->|SPARQL Query| B[Raw Images]
+    B -->|PIL Processing| C[Metadata]
+    B -->|K-Means| D[Color Data]
+    B -->|User Rating| E[Preferences]
+    C --> F[Training Data]
+    D --> F
+    E --> F
+    F -->|KNN Model| G[Recommendations]
+```
+
 ## 🛠️ Installation
 
 ### Prerequisites
@@ -72,50 +86,6 @@ jupyter notebook main.ipynb
 5. **Get recommendations**: Execute cells 11-19 for personalized suggestions
 
 
-## 🔄 Data Pipeline
-
-```mermaid
-graph LR
-    A[Wikidata] -->|SPARQL Query| B[Raw Images]
-    B -->|PIL Processing| C[Metadata]
-    B -->|K-Means| D[Color Data]
-    B -->|User Rating| E[Preferences]
-    C --> F[Training Data]
-    D --> F
-    E --> F
-    F -->|KNN Model| G[Recommendations]
-```
-
-## 🐛 Known Issues & Fixes
-
-### ✅ Fixed Issues
-
-#### 1. **Critical: UnboundLocalError in extract_features()**
-- **Problem**: Variables not initialized, causing crash
-- **Fix**: Added proper variable initialization and error handling
-- **Status**: ✅ **RESOLVED**
-
-#### 2. **Data Consistency Issues**
-- **Problem**: Mismatched data between JSON files
-- **Impact**: Only 3/6 liked images have complete metadata
-- **Workaround**: ✅ Graceful error handling implemented
-
-
-### Machine Learning Model
-- **Algorithm**: K-Nearest Neighbors (KNN)
-- **Features**: Image orientation, size category, dominant colors
-- **Training Data**: User-liked images with complete metadata
-- **Recommendation Strategy**: Content-based filtering
-
-### Data Processing
-```python
-# Image features extracted:
-{
-    "orientation": "Landscape|Portrait|Square",
-    "size": "Thumbnail|Small|Medium|Large|Full", 
-    "colors": ["red", "blue", "green"]  # Top 3 dominant colors
-}
-```
 
 ## 📊 Results
 
