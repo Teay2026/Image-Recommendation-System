@@ -39,7 +39,7 @@ This project implements an **intelligent image recommendation system** that lear
 | **Color Analysis** | K-Means clustering for dominant colors | ✅ Working |
 | **User Interface** | Interactive like/dislike rating system | ✅ Working |
 | **ML Recommendation** | KNN-based personalized suggestions | ✅ Fixed |
-| **Data Visualization** | Charts for dataset insights | ⚠️ Minor issues |
+| **Data Visualization** | Charts for dataset insights | ✅ Working |
 | **Error Handling** | Robust data validation | ✅ Improved |
 
 ## 🛠️ Installation
@@ -71,54 +71,6 @@ jupyter notebook main.ipynb
 4. **Rate images**: Use the interactive interface in cell 9
 5. **Get recommendations**: Execute cells 11-19 for personalized suggestions
 
-### Step-by-Step Guide
-
-#### 1. Data Collection
-```python
-# The system automatically downloads 100 car images from Wikidata
-# Images are stored in the 'images' folder
-# Metadata is saved to 'json/metadata.json'
-```
-
-#### 2. Color Analysis
-```python
-# Extracts 3 dominant colors per image using K-Means
-# Maps colors to predefined categories (red, blue, green, etc.)
-# Results saved to 'json/predominant_colors.json'
-```
-
-#### 3. User Interaction
-```python
-# Interactive widget displays random images
-# User clicks "Like" or "Dislike" for 20 images
-# Preferences saved to 'json/image_ratings.json'
-```
-
-#### 4. Recommendation Generation
-```python
-# KNN model analyzes liked images
-# Recommends similar images based on:
-# - Color preferences
-# - Size preferences  
-# - Orientation preferences
-```
-
-## 📁 Project Structure
-
-```
-DataMining/
-├── main.ipynb                    # Main implementation notebook
-├── README.md                     # This file
-├── project.md                    # Original assignment requirements
-├── DataMining_REPORT.pdf         # Project report
-├── images/                       # Downloaded car images (251 files)
-├── json/                         # Data files
-│   ├── metadata.json            # Image metadata (99 records)
-│   ├── predominant_colors.json  # Color analysis (251 records)
-│   ├── image_ratings.json       # User ratings (20 ratings)
-│   └── user_preferences.json    # User profile (4 keys)
-└── .claude/                     # Claude Code workspace
-```
 
 ## 🔄 Data Pipeline
 
@@ -148,35 +100,6 @@ graph LR
 - **Impact**: Only 3/6 liked images have complete metadata
 - **Workaround**: ✅ Graceful error handling implemented
 
-### ⚠️ Remaining Minor Issues
-
-#### 1. **File Path Inconsistency**
-```python
-# Cell 15 uses double slash (works but inconsistent)
-metadata_file = "*json*//metadata.json"  # Should be "*json*/metadata.json"
-```
-
-#### 2. **Limited Training Data**
-- Only 3 valid training samples out of 6 liked images
-- Recommendation quality may be limited
-
-#### 3. **Visualization Data Gaps**
-- Many images have "Unknown" creation dates
-- Affects year-based visualizations
-
-## 🔧 Technical Details
-
-### Dependencies
-```python
-SPARQLWrapper==2.0.0    # Wikidata queries
-pandas==2.2.2           # Data manipulation  
-matplotlib==3.9.0       # Visualizations
-numpy==1.26.4          # Numerical computing
-Pillow==10.3.0         # Image processing
-scikit-learn==1.5.2    # Machine learning
-ipywidgets==8.1.7      # Interactive UI
-scipy==1.14.1          # Scientific computing
-```
 
 ### Machine Learning Model
 - **Algorithm**: K-Nearest Neighbors (KNN)
@@ -208,41 +131,3 @@ scipy==1.14.1          # Scientific computing
 - **Error Handling**: ✅ Graceful handling of missing data
 - **User Interface**: ✅ Interactive rating system functional
 - **Recommendations**: ✅ Generates personalized suggestions
-
-### Sample Output
-```
-Processing liked images for training data...
-✓ AlfaRomeo8C35_image_8.jpg: ('Landscape', 'Medium', ['gray', 'purple', 'pink'])
-✓ Dino206S_image_39.jpg: ('Landscape', 'Large', ['brown', 'brown', 'black'])
-✓ FerrariDino166F2_image_7.jpg: ('Landscape', 'Full', ['gray', 'gray', 'pink'])
-
-Found 3 valid training samples out of 6 liked images
-SUCCESS: Fixed the UnboundLocalError and built a working recommendation system!
-```
-
-## 🤝 Contributing
-
-### Authors
-- **HADJ-HAMDRI Mohammed-Amine**
-- **TAHIRI EL ALAOUI Youness**
-
-### Bug Reports
-If you find any issues:
-1. Check the [Known Issues](#known-issues--fixes) section
-2. Verify your Python environment and dependencies
-3. Run each notebook cell sequentially
-4. Check that all JSON files are properly generated
-
-### Improvements
-Potential enhancements:
-- [ ] Fix data consistency across all pipeline stages
-- [ ] Implement more sophisticated ML models
-- [ ] Add content-based image analysis (CNN features)
-- [ ] Improve recommendation diversity
-- [ ] Add user feedback loop for model improvement
-
----
-
-**License**: Creative Commons Attribution-ShareAlike 3.0 Unported License  
-**Last Updated**: September 2024  
-**Status**: ✅ Core functionality working with minor optimizations needed
